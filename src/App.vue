@@ -1,16 +1,27 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <NavBar data="Menu"/>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import NavBar from './components/common/NavBar.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    NavBar,
+  },
+  methods: {
+    handleClick() {
+      const nameInput = this.$refs.name as HTMLInputElement | null
+
+      if (nameInput) {
+        nameInput.classList.add('active')
+        nameInput.focus()
+        console.log("Clicked")
+      }
+
+    }
   }
 });
 </script>
