@@ -1,36 +1,39 @@
 <template>
     <nav class="navbar">
         <ul>
-            <li>{{ data }} 1</li>
-            <li>{{ data }} 2</li>
-            <li>{{ data }} 3</li>
+            <div>
+                <RouterLink to="/">Home</RouterLink>
+                <RouterLink to="/about">About</RouterLink>
+            </div>
+            <div>
+                <li>Language</li>
+            </div>
         </ul>
 
         <div class="bottom-container-with-search">
             <div>Logo</div>
 
             <div class="form-wrapper">
-                <form action="" class="search-form">
-                    <input type="text" name="" id="">
+                <form action="" class="search-form" @submit.prevent="handleSubmit">
+                    <input type="text" name="" id="" v-model="searchInfo">
                     <button>Search</button>
                 </form>
             </div>
             
-            <div>Cart</div>
+            <div>{{ searchInfo }}</div>
         </div>
         
     </nav>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { ref } from 'vue';
 
-export default defineComponent({
-    name: 'NavBar',
-    props: {
-        data: String,
-    }
-});
+const searchInfo = ref('')
+
+const handleSubmit = async () => {
+    console.log(searchInfo.value)
+}
 </script>
 
 <style lang="scss">
@@ -42,23 +45,40 @@ export default defineComponent({
     position: fixed;
     top: 0px;
     left: 0px;
+    z-index: 20;
 
     width: 100%;
     height: 75px;
 
-    background-color: green;
+    background-color: var(--sec-text);
 
-    color: white;
+    color: var(--accent);
     font-weight: bolder;
 
     ul {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
+        gap: 20px;
 
-        padding: 10px;
+        width: 800px;
+        padding: 5px;
         margin: 0px;
 
         list-style-type: none;
+
+        //RouterLink Container 
+        > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        // RouterLink
+        > div > a {
+            text-decoration: none;
+            color: var(--accent);
+        }
     }
 
     .bottom-container-with-search {
@@ -73,7 +93,8 @@ export default defineComponent({
         width: 100%;
 
         .form-wrapper {
-            background-color: white;
+            width: 800px;
+            background-color: var(--accent);
         }
     }
 
@@ -88,7 +109,11 @@ export default defineComponent({
 
         //Search Bar
         > input {
+            flex: 1;
             border: none;
+            background-color: var(--accent);
+
+            color: var(--main-text);
         }
         //Prevent focus border
         > input:focus {
