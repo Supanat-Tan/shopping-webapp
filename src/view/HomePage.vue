@@ -1,15 +1,48 @@
 <template>
   <NavBar/>
-  <SideBar />
     <div class="home-container">
       
       <div class="middle-container">
-        <h2>Welcome to hobby store</h2>
-        <p>What kind of product are you interested in?</p>
 
-        <div>
-          <div v-for="type in categories" :key="type.id">{{ type.category }}</div>
+        <div class="banner-wrapper">
+          <div>
+            <button class="left"> &lt; </button>
+            <img src="" alt="Image will be add soon">
+            <button class="right"> &gt; </button>
+          </div>
+
+          <div>
+            <div><img src="" alt="Image will be add soon"></div>
+            <div><img src="" alt="Image will be add soon"></div>
+          </div>
+
         </div>
+
+        <div class="popular-item-container">
+          <h3>{{ language.homepage.popularproduct }}</h3>
+
+          <div>
+            <PopularBox 
+            v-for="item in popularItems" 
+            v-bind:key="item.id" 
+            :msg="item.content"
+            />
+          </div>
+
+        </div>
+
+        <div class="category-item-container">
+          <h3>Category</h3>
+
+          <div>
+            <CategoryItem 
+            v-for="item in categoryItems"
+            :key="item.id"
+            :msg="item.content"
+            />
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -19,32 +52,66 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import NavBar from '@/components/NavBar.vue';
-import SideBar from '@/components/SideBar.vue';
+import '@/styles/homepage.scss'
+import PopularBox from '@/components/PopularBox.vue';
+import type { CategoryItemType, PopularProducts, User } from '@/types/type';
+import CategoryItem from '@/components/CategoryItem.vue';
+import { useI18n } from '@/i18n/i18n';
 
-interface User {
-    id: number;
-    name: string;
-    username: string;
-    email: string;
-}
+const { language } = useI18n();
 
-//for testing
-const categories = [
+//For testing
+const popularItems: PopularProducts[] = [
   {
-    category: 'Model',
-    id: 1
+    id: 1,
+    content: "OO"
   },
   {
-    category: 'Tools',
-    id: 2
+    id: 2,
+    content: "Wing"
   },
   {
-    category: 'Paint',
-    id: 3
+    id: 3,
+    content: "Freedom"
   },
   {
-    category: 'Misc',
-    id: 4
+    id: 4,
+    content: "Sazabi"
+  }
+]
+
+const categoryItems: CategoryItemType[] = [
+  {
+    id: 1,
+    content: "Models"
+  },
+  {
+    id: 2,
+    content: "Tools"
+  },
+  {
+    id: 3,
+    content: "Paint"
+  },
+  {
+    id: 4,
+    content: "Utility"
+  },
+  {
+    id: 5,
+    content: "Coat"
+  },
+  {
+    id: 6,
+    content: "Cutter"
+  },
+  {
+    id: 7,
+    content: "Storage"
+  },
+  {
+    id: 8,
+    content: "Sticker"
   },
 ]
 
@@ -61,80 +128,3 @@ onMounted(async () => {
 })
 
 </script>
-
-<style lang="scss">
-
-.home-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  position: absolute;
-  top: 75px;
-  left: 0px;
-
-  width: 100%;
-}
-
-.middle-container {
-  display: flex;
-  flex-direction: column;
-
-  width: 70%;
-  height: 100%;
-
-  background-color: var(--background);
-
-  //Welcome text
-  > h2 {
-    margin: 0px;
-
-    text-align: center;
-    color: var(--main-text);
-    font-size: 3rem;
-  }
-
-  //Secondary text
-  > p {
-    margin: 0px 0px 20px 0px;
-
-    text-align: center;
-    color: var(--sec-text);
-    font-size: 1.5rem;
-  }
-
-  // Category Container
-  > div {
-    display: grid;
-    grid-template-columns: 200px 200px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-
-    //Each category div
-    > div {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      width: 200px;
-      height: 200px;
-
-      border: 2px solid var(--sec-text);
-      border-radius: 50px;
-
-      color: var(--main-text);
-      font-weight: bold;
-      font-size: 2rem;
-
-      transition: background-color 0.3s ease;
-      cursor: pointer;
-    }
-    > div:hover {
-      background-color: var(--accent);
-    }
-  }
-}
-
-</style>

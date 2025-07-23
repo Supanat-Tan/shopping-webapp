@@ -1,0 +1,9 @@
+{
+    "navbar": {
+        "home": "Home",
+        "About": "About"
+    },
+    "homepage": {
+        "popularproduct": "Popular Product"
+    }
+}

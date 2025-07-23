@@ -1,0 +1,159 @@
+.home-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  position: absolute;
+  top: 100px;
+  left: 0px;
+
+  width: 100%;
+  height: auto;
+}
+
+.middle-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  width: 70%;
+  height: 100%;
+
+}
+
+.banner-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  width: 100%;
+  height: 300px;
+
+  //Left image slider
+  > div:nth-child(1) {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+
+    position: relative;
+
+    color: $main-text;
+
+    // Arrow button
+    > button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        padding: 10px;
+
+        border: none;
+        background-color: transparent;
+
+        font-size: 2rem;
+        color: $main-text;
+
+        cursor: pointer;
+    }
+
+    > button.left {
+        left: 0px;
+    }
+
+    > button.right {
+        right: 0px;
+    }
+  }
+
+  //Right 2 banner container
+  > div:nth-child(2) {
+    flex: 1;
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    //Each child element
+    > div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+
+        background-color: $background;
+        border: 2px solid $main-text;
+        border-radius: 20px;
+
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: $main-text;
+
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+  }
+}
+
+.popular-item-container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 10px;
+
+  background-color: $sec-text;
+  border-radius: 10px;
+
+  //Popular Product Text
+  > h3 {
+    margin: 5px 0px;
+
+    color: $accent;
+  }
+
+  //Bottom Container
+  > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+
+  }
+}
+
+.category-item-container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 10px;
+
+  background-color: $sec-text;
+  border-radius: 10px;
+
+  //Categoty Text
+  > h3 {
+    margin: 5px 0px;
+
+    color: $accent;
+  }
+
+  //Category Container
+  > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+  }
+}
