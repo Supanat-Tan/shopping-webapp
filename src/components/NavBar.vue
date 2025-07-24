@@ -34,11 +34,17 @@
 <script lang="ts" setup>
 import { useI18n } from '@/i18n/i18n';
 import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import '@/styles/navbar.scss'
+import { useSearchItemStore } from '@/stores/searchItem';
 
-const searchInfo = ref('')
+const searchInfo = ref('');
 
-const { setLang, language } = useI18n()
+const { setLang, language } = useI18n();
+
+const router = useRouter();
+
+const searchData = useSearchItemStore();
 
 //Pause Fetch
 let debounceTimer: number | null = null
@@ -62,7 +68,37 @@ watch(searchInfo, () => {
     searchTemp()
 })
 
+//For seach data test
+const data = [
+    {
+        _id: '1',
+        name: 'Gundam OO',
+        price: 1500,
+        saleAmount: 25,
+    },
+    {
+        _id: '2',
+        name: 'Gundam Wing',
+        price: 1300,
+        saleAmount: 25,
+    },
+    {
+        _id: '3',
+        name: 'Freedom Gundam',
+        price: 1800,
+        saleAmount: 25,
+    },
+    {
+        _id: '4',
+        name: 'Unicorn Gundam',
+        price: 2500,
+        saleAmount: 25,
+    },
+]
+
 const handleSubmit = async () => {
     console.log(searchInfo.value)
+    searchData.setItemList(data)
+    router.push('/search')
 }
 </script>

@@ -22,3 +22,16 @@ export interface PopularBoxProps {
 export interface CategoryBoxProps {
     msg: string
 }
+
+export interface Product {
+    _id: string,
+    name: string,
+    price: number,
+    saleAmount: number
+}
+
+export type ProductListType = Product[];
+
+export interface SearchItemPropType {
+    item: Product
+}
