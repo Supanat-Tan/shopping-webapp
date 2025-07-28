@@ -25,5 +25,8 @@ const props = defineProps<SearchItemPropType>()
 
     width: 200px;
     height: 200px;
+
+    background-color: $accent;
+    border-radius: 30px;
 }
 </style>

@@ -12,11 +12,11 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    z-index: 10;
+    z-index: 20;
 
     width: 15%;
     height: 100%;
 
-    background-color: var(--sec-text);
+    background-color: $sec-text;
 }
 </style>

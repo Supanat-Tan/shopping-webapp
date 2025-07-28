@@ -1,9 +1,11 @@
 <template>
+    <LoadingPage v-if="isLoading"/>
     <nav class="navbar">
         <ul>
             <div>
                 <RouterLink to="/">{{ language.navbar.home }}</RouterLink>
                 <RouterLink to="/about">About</RouterLink>
+                <RouterLink to="/loading">About</RouterLink>
             </div>
             <div>
                 <li @click="setLang('th')">TH</li>
@@ -37,8 +39,16 @@ import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import '@/styles/navbar.scss'
 import { useSearchItemStore } from '@/stores/searchItem';
+import { useLoadingStore } from '@/stores/loading';
+import LoadingPage from '@/view/LoadingPage.vue';
+import { storeToRefs } from 'pinia';
 
 const searchInfo = ref('');
+
+//Loading store
+const loadingStore = useLoadingStore();
+const { isLoading } = storeToRefs(loadingStore)
+const { setLoading } = loadingStore
 
 const { setLang, language } = useI18n();
 
@@ -99,6 +109,11 @@ const data = [
 const handleSubmit = async () => {
     console.log(searchInfo.value)
     searchData.setItemList(data)
-    router.push('/search')
+    setLoading(true);
+
+    setTimeout(() => {
+        setLoading(false);
+        router.push('/search')
+    }, 1000)
 }
 </script>
