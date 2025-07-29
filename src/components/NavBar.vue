@@ -5,7 +5,6 @@
             <div>
                 <RouterLink to="/">{{ language.navbar.home }}</RouterLink>
                 <RouterLink to="/about">About</RouterLink>
-                <RouterLink to="/loading">About</RouterLink>
             </div>
             <div>
                 <li @click="setLang('th')">TH</li>
