@@ -34,4 +34,5 @@ export type ProductListType = Product[];
 
 export interface SearchItemPropType {
     item: Product
+    viewmode: boolean
 }

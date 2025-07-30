@@ -1,6 +1,6 @@
 <template>
 
-    <div class="search-item-box">
+    <div class="search-item-box" :class="{ 'grid' : props.viewmode, 'list': !props.viewmode}">
         <div>{{ props.item.name }}</div>
         <div>Price: {{ props.item.price }}</div>
         <div>{{ props.item.saleAmount }} Sold</div>
@@ -18,6 +18,20 @@ const props = defineProps<SearchItemPropType>()
 
 <style lang="scss">
 .search-item-box {
+    background-color: $background;
+    border: 2px solid $sec-text;
+    border-radius: 30px;
+
+    transform: scale(1.0, 1.0);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.search-item-box:hover {
+    background-color: $accent;
+    transform: scale(0.98, 0.98);
+}
+
+.search-item-box.grid {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,8 +39,15 @@ const props = defineProps<SearchItemPropType>()
 
     width: 200px;
     height: 200px;
+}
 
-    background-color: $accent;
-    border-radius: 30px;
+.search-item-box.list {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+
+    width: 90%;
+    padding: 10px;
 }
 </style>

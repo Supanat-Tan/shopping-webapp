@@ -2,7 +2,7 @@
     <NavBar />
     <SideBar />
     <LoadingPage v-if="isLoading"/>
-    <div class="listpage-container">
+    <div class="listpage">
 
         <div>
             <div class="button-container">
@@ -12,15 +12,16 @@
 
                 <div>
                     <button @click="toggleView('grid')">Grid</button>
-                    <button @click="toggleView('row')">Row</button>
+                    <button @click="toggleView('list')">List</button>
                 </div>
             </div>
 
-            <div class="itemlist-container" :class="{ grid: viewgrid, row: !viewgrid}">
+            <div class="itemlist-container" :class="{ 'grid': viewgrid, 'list': !viewgrid}">
                 <SearchItemBox 
                 v-for="item in searchItems.productList" 
                 :key="item._id"
                 :item="item"
+                :viewmode="viewgrid"
                 />
             </div>
         </div>
@@ -47,15 +48,17 @@ const toggleView = (type: string) => {
         viewgrid.value = true
     }
 
-    else if (type === 'row') {
+    else if (type === 'list') {
         viewgrid.value = false
     }
+
+    console.log(viewgrid.value)
 }
 
 </script>
 
 <style lang="scss">
-.listpage-container {
+.listpage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,39 +68,41 @@ const toggleView = (type: string) => {
     left: 50%;
     transform: translate(-50%);
 
-    width: auto;
-    max-width: 1080px;
+    width: 70%;
     padding: 20px;
 
-    background-color: $sec-text;
+    background-color: transparent;
     border-radius: 50px;
 
+    //Main container
     > div {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 20px;
+
+        width: 80%;
     }
 }
-// Product Container
-//.itemlist-container {
-    
-//}
+//Product Container
+.itemlist-container {
+    width: 100%;
+}
 
 //For grid view
 .itemlist-container.grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(5, 200px);
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
 //For row view
-.itemlist-container.row {
+.itemlist-container.list {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -112,10 +117,10 @@ const toggleView = (type: string) => {
     width: 100%;
     //Affect All button
     button {
-        border: none;
+        border: 2px solid $sec-text;
         background-color: transparent;
 
-        color: $accent;
+        color: $main-text;
         font-weight: bold;
         font-size: 1.2rem;
 
@@ -123,9 +128,9 @@ const toggleView = (type: string) => {
     }
 
     // Only affect sort button
-    > button {
-        border-right: 2px solid $accent;
-    }
+    //> button {
+
+    //}
 
     //Right Section grid row toggle
     > div {
@@ -135,7 +140,7 @@ const toggleView = (type: string) => {
         > button {
             margin-left: 5px;
 
-            border: 2px solid $accent;
+            
         }
     }
 }

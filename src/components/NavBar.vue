@@ -103,6 +103,18 @@ const data = [
         price: 2500,
         saleAmount: 25,
     },
+    {
+        _id: '5',
+        name: 'Nu Gundam',
+        price: 2200,
+        saleAmount: 25,
+    },
+    {
+        _id: '6',
+        name: 'Gundam Heavy Arm',
+        price: 1750,
+        saleAmount: 25,
+    },
 ]
 
 const handleSubmit = async () => {
