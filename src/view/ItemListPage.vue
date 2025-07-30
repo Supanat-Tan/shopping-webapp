@@ -11,12 +11,12 @@
                 <button>Price</button>
 
                 <div>
-                    <button @click="toggleView">Grid</button>
-                    <button @click="toggleView">Row</button>
+                    <button @click="toggleView('grid')">Grid</button>
+                    <button @click="toggleView('row')">Row</button>
                 </div>
             </div>
 
-            <div class="itemlist-container">
+            <div class="itemlist-container" :class="{ grid: viewgrid, row: !viewgrid}">
                 <SearchItemBox 
                 v-for="item in searchItems.productList" 
                 :key="item._id"
@@ -40,11 +40,16 @@ import { useLoadingStore } from '@/stores/loading'
 
 const searchItems = useSearchItemStore();
 const { isLoading } = useLoadingStore();
-const viewMode = ref(true);
+const viewgrid = ref(true);
 
-const toggleView = () => {
-    viewMode.value = !viewMode.value
-    console.log(viewMode.value)
+const toggleView = (type: string) => {
+    if (type === 'grid') {
+        viewgrid.value = true
+    }
+
+    else if (type === 'row') {
+        viewgrid.value = false
+    }
 }
 
 </script>
@@ -75,10 +80,24 @@ const toggleView = () => {
         gap: 20px;
     }
 }
+// Product Container
+//.itemlist-container {
+    
+//}
 
-.itemlist-container {
+//For grid view
+.itemlist-container.grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+//For row view
+.itemlist-container.row {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 10px;
