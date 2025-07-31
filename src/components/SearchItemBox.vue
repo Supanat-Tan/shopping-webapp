@@ -48,6 +48,7 @@ const props = defineProps<SearchItemPropType>()
     align-items: start;
 
     width: 90%;
+    height: 200px;
     padding: 10px;
 }
 </style>
