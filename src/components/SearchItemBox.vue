@@ -38,17 +38,17 @@ const props = defineProps<SearchItemPropType>()
     align-items: center;
 
     width: 200px;
-    height: 200px;
+    height: 300px;
 }
 
 .search-item-box.list {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: space-between;
     align-items: start;
 
     width: 90%;
-    height: 200px;
+    height: 150px;
     padding: 10px;
 }
 </style>

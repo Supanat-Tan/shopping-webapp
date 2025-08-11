@@ -9,11 +9,12 @@ export interface CategoryItemType {
 }
 
 export interface User {
-    id: number;
-    name: string;
+    _id: string;
     username: string;
     email: string;
 }
+
+export type UserStore = User
 
 export interface PopularBoxProps {
     msg: string

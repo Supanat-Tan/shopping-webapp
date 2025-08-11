@@ -13,7 +13,6 @@ const props = defineProps<PopularBoxProps>()
 </script>
 
 <style lang="scss">
-
     //Each item
      .popular-item-box {
       flex: 1;

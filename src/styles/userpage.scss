@@ -1,0 +1,52 @@
+.user-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 100%;
+}
+.user-main-container {
+    @include flex-column-center;
+    gap: 20px;
+
+    width: 100%;
+    max-width: 70%;
+    height: auto;
+}
+
+.user-top-container {
+    @include flex-row-center;
+    gap: 10px;
+
+    width: 100%;
+
+    // Image side
+    > div:nth-child(1) {
+        flex: 1;
+        @include flex-column-center;
+
+        height: 300px;
+
+        background-color: wheat;
+    }
+
+    > div:nth-child(2) {
+        flex: 2;
+        @include flex-column-center;
+
+        height: 300px;
+
+        background-color: white;
+    }
+}
+
+.user-bottom-container {
+    width: 100%;
+
+    background-color: gray;
+}

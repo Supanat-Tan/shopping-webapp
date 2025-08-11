@@ -1,14 +1,17 @@
 <template>
     <LoadingPage v-if="isLoading"/>
     <nav class="navbar">
+        
         <ul>
             <div>
                 <RouterLink to="/">{{ language.navbar.home }}</RouterLink>
                 <RouterLink to="/about">About</RouterLink>
             </div>
+
             <div>
                 <li @click="setLang('th')">TH</li>
                 <li @click="setLang('en')">EN</li>
+                <RouterLink to="/user">User</RouterLink>
             </div>
         </ul>
 
