@@ -7,6 +7,7 @@ export const useUserStore = defineStore('user', () => {
         _id: "",
         email: "",
         username: "",
+        createdAt: "",
     });
 
     const setUser = (newUser: User) => {

@@ -6,13 +6,13 @@
 
             <div class="user-top-container">
                 <div>
-                    <img src="" alt="Image will be add soon">
+                    <img src="" alt="Your Image">
                 </div>
                 
                 <div class="user-info-container">
                     <div>Username: {{ user.username }}</div>
                     <div>email: {{ user.email }}</div>
-                    <div></div>
+                    <div>Join since: {{ user.createdAt.split("T")[0] }}</div>
                     <div></div>
                 </div>
             </div>
@@ -43,7 +43,8 @@ const { user } = storeToRefs(userStore);
 const router = useRouter();
 
 onMounted(async () => {
-    const checkUser = await fetch('/api/auth/me', {
+    console.log("Sent")
+    const checkUser = await fetch('/api/auth/686fc5bae802a3e2f74e8abe', {
         credentials: "include"
     });
 
