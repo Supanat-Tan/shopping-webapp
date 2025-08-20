@@ -12,10 +12,10 @@ export interface User {
     _id: string;
     username: string;
     email: string;
-    createdAt: string
+    createdAt: string;
 }
 
-export type UserStore = User
+export type UserStore = User | null
 
 export interface PopularBoxProps {
     msg: string

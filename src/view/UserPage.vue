@@ -10,9 +10,9 @@
                 </div>
                 
                 <div class="user-info-container">
-                    <div>Username: {{ user.username }}</div>
-                    <div>email: {{ user.email }}</div>
-                    <div>Join since: {{ user.createdAt.split("T")[0] }}</div>
+                    <div>Username: {{ user?.username }}</div>
+                    <div>email: {{ user?.email }}</div>
+                    <div>Join since: {{ user?.createdAt?.split("T")[0] }}</div>
                     <div></div>
                 </div>
             </div>
@@ -32,38 +32,14 @@
 import NavBar from '@/components/NavBar.vue';
 import { onMounted } from 'vue';
 import '@/styles/userpage.scss'
-import { apiCall } from '@/services/userServices';
 import { useUserStore } from '@/stores/userStore';
 import { storeToRefs } from 'pinia';
-import { useRouter } from 'vue-router';
 
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
 
-const router = useRouter();
-
 onMounted(async () => {
-    console.log("Sent")
-    const checkUser = await fetch('/api/auth/686fc5bae802a3e2f74e8abe', {
-        credentials: "include"
-    });
-
-    if (!checkUser) {
-        router.push('/login')
-        throw new Error("User is not currently login")
-    }
-
-    const jsonUser = await checkUser.json();
-    const response = await apiCall("get-user", jsonUser._id);
-    
-    if (!response) {
-        console.log("Something wrong")
-        return;
-    }
-
-    const newUser = await response.json()
-    console.log(newUser);
-    userStore.setUser(newUser);
+    console.log(user.value)
     
 });
 

@@ -11,7 +11,9 @@
             <div>
                 <li @click="setLang('th')">TH</li>
                 <li @click="setLang('en')">EN</li>
-                <RouterLink to="/user">User</RouterLink>
+                <RouterLink v-if="user" to="/user">User</RouterLink>
+                <RouterLink v-if="!user" to="/auth">Login</RouterLink>
+                <li v-if="user" @click="signOut">Logout</li>
             </div>
         </ul>
 
@@ -44,13 +46,31 @@ import { useSearchItemStore } from '@/stores/searchItem';
 import { useLoadingStore } from '@/stores/loading';
 import LoadingPage from '@/view/LoadingPage.vue';
 import { storeToRefs } from 'pinia';
+import { useUserStore } from '@/stores/userStore';
+import { useAuth } from '@/hooks/useAuth';
 
 const searchInfo = ref('');
+
+const { logout } = useAuth();
+
+const signOut = async () => {
+   const response = await logout();
+
+   if (response) {
+    router.push('/')
+    window.location.reload();
+   }
+   
+}
 
 //Loading store
 const loadingStore = useLoadingStore();
 const { isLoading } = storeToRefs(loadingStore)
 const { setLoading } = loadingStore
+
+//User store
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
 
 const { setLang, language } = useI18n();
 
