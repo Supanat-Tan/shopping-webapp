@@ -25,16 +25,33 @@ export interface CategoryBoxProps {
     msg: string
 }
 
+//Product List
 export interface Product {
     _id: string,
-    name: string,
+    productName: string,
     price: number,
-    saleAmount: number
+    soldAmount: number,
+    averageRating: number
 }
 
 export type ProductListType = Product[];
+
+export type ProductDetailType = Product | null
 
 export interface SearchItemPropType {
     item: Product
     viewmode: boolean
 }
+
+//Cart
+export interface CartItem {
+    _id: string,
+    productName: string,
+    price: number
+    quantity: number
+}
+
+export type Cart = CartItem[];
+
+//Product Store
+export type CurrentItemType = Product | null

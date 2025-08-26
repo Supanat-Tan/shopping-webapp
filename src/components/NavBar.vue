@@ -31,7 +31,9 @@
                 <span>Search For: {{ searchInfo }}</span>
             </div>
             
-            <div>Cart</div>
+            <div @click.stop="checkCart">Cart</div>
+            <div>{{ cartCount? cartCount : 0 }}</div>
+            <button @click.stop="clearCart">Clear cart</button>
         </div>
         
     </nav>
@@ -48,6 +50,8 @@ import LoadingPage from '@/view/LoadingPage.vue';
 import { storeToRefs } from 'pinia';
 import { useUserStore } from '@/stores/userStore';
 import { useAuth } from '@/hooks/useAuth';
+import { apiCall } from '@/services/userServices';
+import { useCartStore } from '@/stores/cart';
 
 const searchInfo = ref('');
 
@@ -72,7 +76,17 @@ const { setLoading } = loadingStore
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
 
+//Language store
 const { setLang, language } = useI18n();
+
+//Cart
+const cartStore = useCartStore();
+const { clearCart } = useCartStore();
+const { cartItem, cartCount } = storeToRefs(cartStore)
+
+const checkCart = () => {
+    console.log(cartItem.value)
+}
 
 const router = useRouter();
 
@@ -90,8 +104,6 @@ const searchTemp = async () => {
 
         if (response.ok) {
             const users = await response.json();
-            console.log(users);
-            console.log(searchInfo.value)
         }
     }, 1000)  
 }
@@ -100,54 +112,20 @@ watch(searchInfo, () => {
     searchTemp()
 })
 
-//For seach data test
-const data = [
-    {
-        _id: '1',
-        name: 'Gundam OO',
-        price: 1500,
-        saleAmount: 25,
-    },
-    {
-        _id: '2',
-        name: 'Gundam Wing',
-        price: 1300,
-        saleAmount: 25,
-    },
-    {
-        _id: '3',
-        name: 'Freedom Gundam',
-        price: 1800,
-        saleAmount: 25,
-    },
-    {
-        _id: '4',
-        name: 'Unicorn Gundam',
-        price: 2500,
-        saleAmount: 25,
-    },
-    {
-        _id: '5',
-        name: 'Nu Gundam',
-        price: 2200,
-        saleAmount: 25,
-    },
-    {
-        _id: '6',
-        name: 'Gundam Heavy Arm',
-        price: 1750,
-        saleAmount: 25,
-    },
-]
-
 const handleSubmit = async () => {
-    console.log(searchInfo.value)
-    searchData.setItemList(data)
     setLoading(true);
 
-    setTimeout(() => {
+    try {
+        const response = await apiCall('get-all-product');
+        const jsonData = await response.json();
+        searchData.setItemList(jsonData);
+        
         setLoading(false);
         router.push('/search')
-    }, 1000)
+    }
+
+    catch (err) {
+        console.log(err)
+    }
 }
 </script>

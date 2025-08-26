@@ -5,6 +5,7 @@ import ItemListPage from "@/view/ItemListPage.vue";
 import LoadingPage from "@/view/LoadingPage.vue";
 import UserPage from "@/view/UserPage.vue";
 import AuthPage from "@/view/AuthPage.vue";
+import ProductDetailPage from "@/view/ProductDetailPage.vue";
 
 const routes = [
     {
@@ -36,6 +37,11 @@ const routes = [
         path: '/auth',
         name: 'AuthPage',
         component: AuthPage
+    },
+    {
+        path: '/product/:id',
+        name: 'ProductDetailPage',
+        component: ProductDetailPage
     },
 ]
 

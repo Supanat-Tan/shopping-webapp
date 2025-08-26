@@ -1,4 +1,4 @@
-export const apiCall = async (api: string, payload?: object): Promise<Response> => {
+export const apiCall = async (api: string, payload?: unknown): Promise<Response> => {
     let response;
 
     switch (api) {
@@ -38,6 +38,18 @@ export const apiCall = async (api: string, payload?: object): Promise<Response> 
             response = await fetch('/api/auth/logout', {
                 method: "POST",
                 credentials: "include"
+            })
+            break;
+
+        case "get-all-product":
+            response = await fetch('/api/product', {
+                method: "GET"
+            })
+            break;
+
+        case "get-one-product":
+            response = await fetch(`/api/product/${payload}`, {
+                method: "GET"
             })
             break;
         

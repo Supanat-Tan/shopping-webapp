@@ -36,12 +36,20 @@ import SearchItemBox from '@/components/SearchItemBox.vue';
 import SideBar from '@/components/SideBar.vue';
 import LoadingPage from './LoadingPage.vue';
 import { useSearchItemStore } from '@/stores/searchItem';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useLoadingStore } from '@/stores/loading'
+import { storeToRefs } from 'pinia';
+import { apiCall } from '@/services/userServices';
 
 const searchItems = useSearchItemStore();
-const { isLoading } = useLoadingStore();
+const { productList } = storeToRefs(searchItems)
+
+const loadingStore = useLoadingStore();
+const { isLoading } = storeToRefs(loadingStore)
+
 const viewgrid = ref(true);
+
+
 
 const toggleView = (type: string) => {
     if (type === 'grid') {
@@ -52,8 +60,22 @@ const toggleView = (type: string) => {
         viewgrid.value = false
     }
 
-    console.log(viewgrid.value)
 }
+
+onMounted(async () => {
+    if (productList.value.length === 0) {
+        try {
+            const response = await apiCall('get-all-product');
+            const jsonData = await response.json();
+
+            searchItems.setItemList(jsonData);
+            loadingStore.setLoading(false);
+        } catch (err) {
+            console.log(err)
+        }
+        
+    }
+})
 
 </script>
 
