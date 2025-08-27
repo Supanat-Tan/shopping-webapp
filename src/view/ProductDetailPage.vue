@@ -80,12 +80,12 @@ onMounted(async () => {
 
     //Img container
     > div:nth-child(1) {
-        color: green;
+        color: $sec-text;
     }
 
     //Detail container
     > div:nth-child(2) {
-        color: red;
+        color: $sec-text;
     }
 }
 
