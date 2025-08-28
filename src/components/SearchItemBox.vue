@@ -31,7 +31,7 @@ const { addCartItem } = useCartStore()
 const pushToCart = () => {
     addCartItem({
         _id: props.item._id,
-        productName: props.item._id,
+        productName: props.item.productName,
         price: props.item.price,
         quantity: 1
     })
