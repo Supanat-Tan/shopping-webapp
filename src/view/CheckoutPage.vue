@@ -1,5 +1,9 @@
 <template>
-    <div>
+    <div class="checkout-page">
+
+        <div class="main-checkout-container">
+            
+        </div>
 
     </div>
 </template>

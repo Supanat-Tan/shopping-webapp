@@ -52,15 +52,13 @@
 <script lang="ts" setup>
 import { useI18n } from '@/i18n/i18n';
 import { ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import '@/styles/navbar.scss'
-import { useSearchItemStore } from '@/stores/searchItem';
 import { useLoadingStore } from '@/stores/loading';
 import LoadingPage from '@/view/LoadingPage.vue';
 import { storeToRefs } from 'pinia';
 import { useUserStore } from '@/stores/userStore';
 import { useAuth } from '@/hooks/useAuth';
-import { apiCall } from '@/services/userServices';
 import { useCartStore } from '@/stores/cart';
 import type { ProductListType } from '@/types/type';
 
@@ -81,7 +79,6 @@ const signOut = async () => {
 //Loading store
 const loadingStore = useLoadingStore();
 const { isLoading } = storeToRefs(loadingStore)
-const { setLoading } = loadingStore
 
 //User store
 const userStore = useUserStore();
@@ -100,9 +97,6 @@ const checkCart = () => {
 }
 
 const router = useRouter();
-const route = useRoute();
-
-const searchData = useSearchItemStore();
 
 //Enter detail page
 const enterProductPage = (_id: string) => {
@@ -121,8 +115,6 @@ const searchTemp = async () => {
     debounceTimer = setTimeout(async() => {
         const response = await fetch(`/api/product?productName=${searchInfo.value}`)
         jsonData.value = await response.json()
-
-        console.log(jsonData.value)
     }, 1000)  
 }
 
@@ -131,38 +123,9 @@ watch(searchInfo, () => {
 })
 
 const handleSubmit = async () => {
-    setLoading(true);
-
-    if (searchInfo.value) {
-        try {
-            const response = await fetch(`/api/product?productName=${searchInfo.value}`)
-            jsonData.value = await response.json();
-            searchData.setItemList(jsonData.value);
-            setLoading(false);
-            if (route.path === "/search") {
-                return
-            }
-            else {
-                router.push('/search')
-            }
-            
-        }
-        catch(err) {
-            console.log(err)
-        }
-    }
-
-    try {
-        const response = await apiCall('get-all-product');
-        jsonData = await response.json();
-        searchData.setItemList(jsonData.value);
-        
-        setLoading(false);
-        router.push('/search')
-    }
-
-    catch (err) {
-        console.log(err)
-    }
+    router.push({
+        path: '/search',
+        query: { productName: searchInfo.value}
+    })
 }
 </script>

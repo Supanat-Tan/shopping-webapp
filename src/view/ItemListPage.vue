@@ -1,7 +1,6 @@
 <template>
     <NavBar />
     <SideBar />
-    <LoadingPage v-if="isLoading"/>
     <div class="listpage">
 
         <div>
@@ -18,7 +17,7 @@
 
             <div class="itemlist-container" :class="{ 'grid': viewgrid, 'list': !viewgrid}">
                 <SearchItemBox 
-                v-for="item in searchItems.productList" 
+                v-for="item in productList" 
                 :key="item._id"
                 :item="item"
                 :viewmode="viewgrid"
@@ -34,22 +33,35 @@
 import NavBar from '@/components/NavBar.vue';
 import SearchItemBox from '@/components/SearchItemBox.vue';
 import SideBar from '@/components/SideBar.vue';
-import LoadingPage from './LoadingPage.vue';
 import { useSearchItemStore } from '@/stores/searchItem';
 import { onMounted, ref } from 'vue';
 import { useLoadingStore } from '@/stores/loading'
 import { storeToRefs } from 'pinia';
-import { apiCall } from '@/services/userServices';
+import { useRoute } from 'vue-router';
 
 const searchItems = useSearchItemStore();
+const { setItemList } = useSearchItemStore();
 const { productList } = storeToRefs(searchItems)
 
-const loadingStore = useLoadingStore();
-const { isLoading } = storeToRefs(loadingStore)
+//Loading component
+const { setLoading } = useLoadingStore();
 
+//Route
+const route = useRoute();
+
+const searchQuery = route.query.productName
+
+onMounted(async () => {
+    setLoading(true)
+    const response = await fetch(`/api/product?productName=${searchQuery}`);
+    const jsonData = await response.json();
+
+    setItemList(jsonData);
+    setLoading(false)
+})
+
+//View mode
 const viewgrid = ref(true);
-
-
 
 const toggleView = (type: string) => {
     if (type === 'grid') {
@@ -61,21 +73,6 @@ const toggleView = (type: string) => {
     }
 
 }
-
-onMounted(async () => {
-    if (productList.value.length === 0) {
-        try {
-            const response = await apiCall('get-all-product');
-            const jsonData = await response.json();
-
-            searchItems.setItemList(jsonData);
-            loadingStore.setLoading(false);
-        } catch (err) {
-            console.log(err)
-        }
-        
-    }
-})
 
 </script>
 
@@ -115,7 +112,7 @@ onMounted(async () => {
 //For grid view
 .itemlist-container.grid {
     display: grid;
-    grid-template-columns: repeat(5, 200px);
+    grid-template-columns: repeat(5, 1fr);
     justify-content: center;
     align-items: center;
     gap: 10px;

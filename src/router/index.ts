@@ -6,6 +6,7 @@ import LoadingPage from "@/view/LoadingPage.vue";
 import UserPage from "@/view/UserPage.vue";
 import AuthPage from "@/view/AuthPage.vue";
 import ProductDetailPage from "@/view/ProductDetailPage.vue";
+import CheckoutPage from "@/view/CheckoutPage.vue";
 
 const routes = [
     {
@@ -42,6 +43,11 @@ const routes = [
         path: '/product/:id',
         name: 'ProductDetailPage',
         component: ProductDetailPage
+    },
+    {
+        path: '/checkout',
+        name: 'CheckoutPage',
+        component: CheckoutPage
     },
 ]
 

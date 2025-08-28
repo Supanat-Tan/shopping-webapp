@@ -51,11 +51,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 import '@/styles/homepage.scss'
 import PopularBox from '@/components/PopularBox.vue';
-import type { CategoryItemType, PopularProducts, User } from '@/types/type';
+import type { CategoryItemType, PopularProducts } from '@/types/type';
 import CategoryItem from '@/components/CategoryItem.vue';
 import { useI18n } from '@/i18n/i18n';
 
@@ -115,17 +114,5 @@ const categoryItems: CategoryItemType[] = [
     content: "Sticker"
   },
 ]
-
-const users = ref<User[]>([])
-
-onMounted(async () => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/users');
-
-  if (response.ok) {
-    const data: User[] = await response.json();
-    users.value = data
-  }
-
-})
 
 </script>

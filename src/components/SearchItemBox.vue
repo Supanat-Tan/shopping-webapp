@@ -5,6 +5,9 @@
     :class="{ 'grid' : props.viewmode, 'list': !props.viewmode}"
     @click="enterDetailPage()"
     >
+        <div class="item-box-img-container">
+            <img src="" alt="Product Image">
+        </div>
         <div>{{ props.item.productName }}</div>
         <div>Price: {{ props.item.price }}</div>
         <div>{{ props.item.soldAmount }} Sold</div>
@@ -46,6 +49,8 @@ const enterDetailPage = async () => {
 
 <style lang="scss">
 .search-item-box {
+    padding: 10px;
+    
     background-color: $background;
     border: 2px solid $sec-text;
     border-radius: 30px;
@@ -64,6 +69,7 @@ const enterDetailPage = async () => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 5px;
 
     width: 200px;
     height: 300px;
@@ -78,5 +84,15 @@ const enterDetailPage = async () => {
     width: 90%;
     height: 150px;
     padding: 10px;
+}
+
+.item-box-img-container {
+    @include flex-column-center;
+
+    height: 150px;
+    width: 100%;
+    margin-bottom: 30px;
+
+    border: 1px solid $main-text;
 }
 </style>
