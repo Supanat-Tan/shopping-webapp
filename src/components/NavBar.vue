@@ -5,7 +5,6 @@
         <ul>
             <div>
                 <RouterLink to="/">{{ language.navbar.home }}</RouterLink>
-                <RouterLink to="/about">About</RouterLink>
             </div>
 
             <div>
@@ -13,6 +12,7 @@
                 <li @click="setLang('en')">EN</li>
                 <RouterLink v-if="user" to="/user">User</RouterLink>
                 <RouterLink v-if="!user" to="/auth">Login</RouterLink>
+                <RouterLink to="/checkout">Checkout</RouterLink>
                 <li v-if="user" @click="signOut">Logout</li>
             </div>
         </ul>
@@ -30,6 +30,7 @@
             <div v-if="searchInfo" class="search-popover">
                 <div>
                     <div>Search For: {{ searchInfo }}</div>
+
                     <div 
                     v-for="item in jsonData" 
                     :key="item._id"
@@ -37,11 +38,11 @@
                     >
                     {{ item.productName }}
                     </div>
-                </div>
-                
+                    
+                </div>   
             </div>
             
-            <div @click.stop="checkCart">Cart</div>
+            <div>Cart</div>
             <div>{{ cartCount? cartCount : 0 }}</div>
             <button @click.stop="clearCart">Clear cart</button>
         </div>
@@ -90,11 +91,7 @@ const { setLang, language } = useI18n();
 //Cart
 const cartStore = useCartStore();
 const { clearCart } = useCartStore();
-const { cartItem, cartCount } = storeToRefs(cartStore)
-
-const checkCart = () => {
-    console.log(cartItem.value)
-}
+const { cartCount } = storeToRefs(cartStore)
 
 const router = useRouter();
 

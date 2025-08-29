@@ -19,6 +19,8 @@ export type UserStore = User | null
 
 export interface PopularBoxProps {
     msg: string
+    amount: number
+    productId: string
 }
 
 export interface CategoryBoxProps {
@@ -55,3 +57,12 @@ export type Cart = CartItem[];
 
 //Product Store
 export type CurrentItemType = Product | null
+
+
+//CheckOut
+export interface CheckOutItemProps {
+    _id: string,
+    productName: string,
+    price: number,
+    quantity: number,
+}

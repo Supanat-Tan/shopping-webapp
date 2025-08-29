@@ -8,10 +8,14 @@
         <div class="item-box-img-container">
             <img src="" alt="Product Image">
         </div>
-        <div>{{ props.item.productName }}</div>
-        <div>Price: {{ props.item.price }}</div>
-        <div>{{ props.item.soldAmount }} Sold</div>
-        <button @click.stop="pushToCart">Add to Cart</button>
+
+        <div>
+            <div>{{ props.item.productName }}</div>
+            <div>Price: {{ props.item.price }}</div>
+            <div>{{ props.item.soldAmount }} Sold</div>
+            <button @click.stop="pushToCart">Add to Cart</button>
+        </div>
+        
     </div>
 
 </template>
@@ -57,6 +61,8 @@ const enterDetailPage = async () => {
 
     transform: scale(1.0, 1.0);
     transition: transform 0.3s ease, background-color 0.3s ease;
+
+    cursor: pointer;
 }
 
 .search-item-box:hover {
@@ -73,17 +79,33 @@ const enterDetailPage = async () => {
 
     width: 200px;
     height: 300px;
+
 }
 
 .search-item-box.list {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: start;
+    gap: 10px;
 
     width: 90%;
     height: 150px;
-    padding: 10px;
+    padding: 15px;
+
+    //Image container
+    > div:nth-child(1) {
+        flex: 2;
+    }
+
+    //Detail container
+    > div:nth-child(2) {
+        flex: 8;
+
+        > button {
+            margin-top: 75px;
+        }
+    }
 }
 
 .item-box-img-container {

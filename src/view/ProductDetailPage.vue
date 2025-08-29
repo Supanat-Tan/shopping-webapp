@@ -32,6 +32,7 @@
                 </div>
 
                 <div class="right-product-detail">
+                    <div>Image will be the same for every product for now</div>
                     <div>Name: {{ product?.productName }}</div>
                     <div>Price: {{ product?.price }}</div>
                     <div>Rating: {{ product?.averageRating }}</div>

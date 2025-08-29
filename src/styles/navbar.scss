@@ -123,5 +123,16 @@
 
     > div {
         padding: 10px;
+
+        //Each item
+        > div:not(:nth-child(1)) {
+            margin-top: 10px;
+
+            cursor: pointer;
+        }
+
+        > div:not(:nth-child(1)):hover {
+            text-decoration: underline;
+        }
     }
 }

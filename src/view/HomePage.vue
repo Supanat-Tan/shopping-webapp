@@ -24,15 +24,17 @@
           <div>
             <PopularBox 
             v-for="item in popularItems" 
-            v-bind:key="item.id" 
-            :msg="item.content"
+            v-bind:key="item._id" 
+            :productId="item._id"
+            :msg="item.productName"
+            :amount="item.soldAmount"
             />
           </div>
 
         </div>
 
         <div class="category-item-container">
-          <h3>Category</h3>
+          <h3>Category (Currently in development)</h3>
 
           <div>
             <CategoryItem 
@@ -54,32 +56,22 @@
 import NavBar from '@/components/NavBar.vue';
 import '@/styles/homepage.scss'
 import PopularBox from '@/components/PopularBox.vue';
-import type { CategoryItemType, PopularProducts } from '@/types/type';
+import type { CategoryItemType, ProductListType } from '@/types/type';
 import CategoryItem from '@/components/CategoryItem.vue';
 import { useI18n } from '@/i18n/i18n';
+import { computed, onMounted, ref } from 'vue';
 
 const { language } = useI18n();
 
-//For testing
-const popularItems: PopularProducts[] = [
-  {
-    id: 1,
-    content: "OO"
-  },
-  {
-    id: 2,
-    content: "Wing"
-  },
-  {
-    id: 3,
-    content: "Freedom"
-  },
-  {
-    id: 4,
-    content: "Sazabi"
-  }
-]
+let popularProduct = ref<ProductListType>([]);
+const popularItems = computed(() => popularProduct.value)
 
+onMounted(async () => {
+  const response = await fetch(`/api/product?soldAmount=most`);
+  popularProduct.value = await response.json();
+})
+
+//Testing
 const categoryItems: CategoryItemType[] = [
   {
     id: 1,
