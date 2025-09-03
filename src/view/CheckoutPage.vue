@@ -22,7 +22,7 @@
     <div class="order-detail-container">
         <div>
             <h2>Total price</h2>
-            <p> = {{ totalPrice }}</p>
+            <p> = {{ totalPrice }} Baht</p>
         </div>
     </div>
 
