@@ -18,9 +18,17 @@
             </div>
 
             <div class="user-bottom-container">
-                <div v-for="item in historyItems" :key="item.id">
-                    {{ item.name }}
+
+                <div v-for="order in historyItems" :key="order._id">
+                    <div v-for="product in order.product" :key="product._id">
+                        <h3>{{ product.productName }}</h3>
+                        <p>x {{ product.quantity }}</p>
+                    </div>
                 </div>
+                <div v-if="historyItems?.length === 0">
+                    No order yet
+                </div>
+
             </div>
 
         </div>
@@ -30,30 +38,16 @@
 
 <script setup lang="ts">
 import NavBar from '@/components/NavBar.vue';
-import { onMounted } from 'vue';
 import '@/styles/userpage.scss'
 import { useUserStore } from '@/stores/userStore';
 import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
 
-onMounted(async () => {
-    console.log(user.value)
-    
-});
+const historyItems = computed(() => user.value?.orderHistory)
 
-//For testing
-const historyItems = [
-    {
-        id: 1,
-        name: "Freedom Gundam"
-    },
-    {
-        id: 2,
-        name: "Wing Zero Gundam"
-    }
-]
 
 </script>
 

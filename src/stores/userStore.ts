@@ -1,3 +1,4 @@
+import { apiCall } from "@/services/userServices";
 import { User } from "@/types/type";
 import { defineStore } from "pinia";
 import { ref } from "vue";
@@ -9,5 +10,15 @@ export const useUserStore = defineStore('user', () => {
         user.value = newUser
     }
 
-    return { setUser, user };
+    const updateUser = async () => {
+        const fetchedUser = await apiCall('check-user')
+        const userJson = await fetchedUser.json()
+        setUser(userJson);
+    }
+
+    const clearUser = () => {
+        user.value = null
+    }
+
+    return { setUser, user, updateUser, clearUser };
 })

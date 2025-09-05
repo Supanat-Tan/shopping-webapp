@@ -67,17 +67,19 @@ const searchInfo = ref('');
 
 const { logout } = useAuth();
 
-const signOut = async () => {
-   const response = await logout();
 
-   if (response.message === "Success") {
-       router.push('/')
-       window.location.reload();
-   }
-   else {
-       alert(response.message);
-       return
-   }
+
+const signOut = async () => {
+    const response = await logout();
+
+    if (response.message === "Success") {
+        clearUser();
+        router.push('/');
+    }
+    else {
+        alert(response.message);
+        return
+    }
 }
 
 //Loading store
@@ -86,6 +88,7 @@ const { isLoading } = storeToRefs(loadingStore)
 
 //User store
 const userStore = useUserStore();
+const { clearUser } = useUserStore();
 const { user } = storeToRefs(userStore);
 
 //Language store

@@ -12,10 +12,18 @@ export interface User {
     _id: string;
     username: string;
     email: string;
+    orderHistory: Order[]
     createdAt: string;
 }
 
 export type UserStore = User | null
+
+export interface Order {
+    _id: string,
+    boughtUser: string,
+    product: CartItem[],
+    date: Date
+}
 
 export interface PopularBoxProps {
     msg: string
@@ -57,7 +65,6 @@ export type Cart = CartItem[];
 
 //Product Store
 export type CurrentItemType = Product | null
-
 
 //CheckOut
 export interface CheckOutItemProps {

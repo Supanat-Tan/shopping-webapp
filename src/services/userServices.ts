@@ -52,6 +52,17 @@ export const apiCall = async (api: string, payload?: unknown): Promise<Response>
                 method: "GET"
             })
             break;
+
+        case "check-out":
+            response = await fetch(`/api/order`, {
+                method: "POST",
+                body: JSON.stringify(payload),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include"
+            })
+            break;
         
         default:
             throw new Error(`Invalid API call: ${api}`);

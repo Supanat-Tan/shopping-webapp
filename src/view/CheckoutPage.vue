@@ -22,8 +22,15 @@
     <div class="order-detail-container">
         <div>
             <h2>Total price</h2>
-            <p> = {{ totalPrice }} Baht</p>
+            <p>Shipping fee = {{ shippingFee }} Baht</p>
+            <p> = {{ totalPrice + shippingFee }} Baht</p>
         </div>
+
+        <form @submit.prevent="handleCheckout">
+            <label for="payment">Input the exact value</label>
+            <input type="number" name="payment" id="payment" v-model="paymentValue">
+            <button>Buy</button>
+        </form>
     </div>
 
 </template>
@@ -31,12 +38,22 @@
 <script setup lang="ts">
 import CheckoutProductBox from '@/components/CheckoutProductBox.vue';
 import NavBar from '@/components/NavBar.vue';
+import { apiCall } from '@/services/userServices';
 import { useCartStore } from '@/stores/cart';
+import { useUserStore } from '@/stores/userStore';
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const cartStore = useCartStore();
+const { clearCart } = useCartStore();
 const { cartItem } = storeToRefs(cartStore);
+
+const userStore = useUserStore();
+const { updateUser } = useUserStore();
+const { user } = storeToRefs(userStore);
 
 const totalPrice = computed(() => {
     return cartItem.value.reduce((sum, item) => {
@@ -44,7 +61,36 @@ const totalPrice = computed(() => {
     }, 0)
 });
 
+const paymentValue = ref<number>(0);
 
+const shippingFee = 50
+
+const handleCheckout = async () => {
+    try {
+        if (paymentValue.value === totalPrice.value + shippingFee) {
+            const response = await apiCall('check-out', {
+                boughtUser: user.value,
+                product: cartItem.value,
+                date: Date.now
+            })
+
+            if (response) {
+                console.log("Success");
+                alert("Successfully placed your order");
+                clearCart();
+                updateUser();
+                router.push('/user')
+            }
+        }
+        else {
+            console.log("Payment Invalid")
+        }
+    }
+
+    catch(err) {
+        console.log(err);
+    }
+};
 
 
 </script>
