@@ -1,8 +1,28 @@
 import { apiCall } from "@/services/userServices";
 import { useUserStore } from "@/stores/userStore";
+import { useRouter } from "vue-router";
 
 export const useAuth = () => {
     const userStore = useUserStore();
+
+    const router = useRouter();
+
+    const checkUser = async () => {
+        try {
+            const response = await apiCall('check-user');
+
+            if (!response.ok) {
+                console.log("User is not login")
+                router.push('/auth')
+                return
+            }
+
+            return response
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
 
     const signup = async (payload: object) => {
         try {
@@ -51,15 +71,22 @@ export const useAuth = () => {
 
     const logout = async () => {
         const response = await apiCall("logout")
+
         if (response.ok) {
+            console.log("Successfully log-out")
             return { message: "Success"}
+        }
+        else {
+            console.log("Fail to log-out")
+            return { message: "Fail to logout"}
         }
     };
     
     return {
     login,
     logout,
-    signup
+    signup,
+    checkUser
     }
 }
 

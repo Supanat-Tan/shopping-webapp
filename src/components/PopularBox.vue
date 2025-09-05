@@ -1,7 +1,7 @@
 <template>
     <div class="popular-item-box" @click="goToProductDetail(props.productId)">
         <div>{{ props.msg }}</div>
-        <div>{{ props.amount }}</div>
+        <div>Sold: {{ props.amount }}</div>
     </div>
 </template>
 

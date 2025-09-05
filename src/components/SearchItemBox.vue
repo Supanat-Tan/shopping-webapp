@@ -26,6 +26,7 @@ import type { SearchItemPropType } from '@/types/type';
 import { useRouter } from 'vue-router';
 import { useCartStore } from '@/stores/cart';
 import { storeToRefs } from 'pinia';
+import { useAuth } from '@/hooks/useAuth';
 
 const props = defineProps<SearchItemPropType>()
 
@@ -35,13 +36,22 @@ const cartStore = useCartStore();
 const { cartItem } = storeToRefs(cartStore);
 const { addCartItem } = useCartStore()
 
-const pushToCart = () => {
+const { checkUser } = useAuth();
+
+const pushToCart = async () => {
+    const user = await checkUser();
+
+    if (!user) {
+        return
+    }
+
     addCartItem({
         _id: props.item._id,
         productName: props.item.productName,
         price: props.item.price,
         quantity: 1
     })
+
     console.log("Cart", cartItem.value)
 }
 

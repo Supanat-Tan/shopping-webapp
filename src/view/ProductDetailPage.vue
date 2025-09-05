@@ -54,12 +54,15 @@ import { apiCall } from '@/services/userServices';
 import { useRoute } from 'vue-router';
 import { ProductDetailType } from '@/types/type';
 import { useCartStore } from '@/stores/cart';
+import { useAuth } from '@/hooks/useAuth';
 
 const loadingStore = useLoadingStore();
 const { isLoading } = storeToRefs(loadingStore);
 const { setLoading } = useLoadingStore();
 
 const route = useRoute();
+
+const { checkUser } = useAuth();
 
 const product = ref<ProductDetailType>(null);
 
@@ -115,10 +118,16 @@ const cartStore = useCartStore();
 const { cartItem } = storeToRefs(cartStore);
 const { addCartItem } = useCartStore()
 
-const pushToCart = () => {
+const pushToCart = async () => {
     if (!product.value) {
         alert("Fail to add this product to cart")
         return;
+    }
+
+    const user = await checkUser();
+
+    if (!user) {
+        return
     }
 
     addCartItem({

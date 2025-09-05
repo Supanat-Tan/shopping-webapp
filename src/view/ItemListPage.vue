@@ -1,6 +1,5 @@
 <template>
     <NavBar />
-    <SideBar />
     <div class="listpage">
 
         <div>
@@ -32,7 +31,6 @@
 <script setup lang="ts">
 import NavBar from '@/components/NavBar.vue';
 import SearchItemBox from '@/components/SearchItemBox.vue';
-import SideBar from '@/components/SideBar.vue';
 import { useSearchItemStore } from '@/stores/searchItem';
 import { onMounted, ref } from 'vue';
 import { useLoadingStore } from '@/stores/loading'

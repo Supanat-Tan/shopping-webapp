@@ -43,6 +43,7 @@ onMounted(async () => {
     
 });
 
+//For testing
 const historyItems = [
     {
         id: 1,
@@ -57,6 +58,5 @@ const historyItems = [
 </script>
 
 <style lang="scss">
-
 
 </style>

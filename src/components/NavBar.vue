@@ -70,11 +70,14 @@ const { logout } = useAuth();
 const signOut = async () => {
    const response = await logout();
 
-   if (response) {
-    router.push('/')
-    window.location.reload();
+   if (response.message === "Success") {
+       router.push('/')
+       window.location.reload();
    }
-   
+   else {
+       alert(response.message);
+       return
+   }
 }
 
 //Loading store
