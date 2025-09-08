@@ -51,7 +51,7 @@ const searchQuery = route.query.productName
 
 onMounted(async () => {
     setLoading(true)
-    const response = await fetch(`/api/product?productName=${searchQuery}`);
+    const response = await fetch(`https://supanat-main-backend.onrender.com/api/product?productName=${searchQuery}`);
     const jsonData = await response.json();
 
     setItemList(jsonData);

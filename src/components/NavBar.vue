@@ -116,7 +116,7 @@ const searchTemp = async () => {
     if (!searchInfo.value) return
 
     debounceTimer = setTimeout(async() => {
-        const response = await fetch(`/api/product?productName=${searchInfo.value}`)
+        const response = await fetch(`https://supanat-main-backend.onrender.com/api/product?productName=${searchInfo.value}`)
         jsonData.value = await response.json()
     }, 1000)  
 }

@@ -67,7 +67,7 @@ let popularProduct = ref<ProductListType>([]);
 const popularItems = computed(() => popularProduct.value)
 
 onMounted(async () => {
-  const response = await fetch(`/api/product?soldAmount=most`);
+  const response = await fetch(`https://supanat-main-backend.onrender.com/api/product?soldAmount=most`);
   popularProduct.value = await response.json();
 })
 
