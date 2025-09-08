@@ -19,8 +19,8 @@ const loadingStore = useLoadingStore();
 const { isLoading } = storeToRefs(loadingStore)
 
 
-onMounted( async() => {
-  checkUser();
+onMounted(async () => {
+  await checkUser();
 });
 
 const checkUser = async () => {
