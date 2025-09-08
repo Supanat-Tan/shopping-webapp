@@ -20,7 +20,9 @@ export const apiCall = async (api: string, payload?: unknown): Promise<Response>
             break;
 
         case 'check-user':
-            response = await fetch('https://supanat-main-backend.onrender.com/api/auth/me');
+            response = await fetch('https://supanat-main-backend.onrender.com/api/auth/me', {
+                credentials: 'include'
+            });
             break;
 
         case "login":
